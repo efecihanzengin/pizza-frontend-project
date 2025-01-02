@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 import pizzaData from "../fakeData";
 import axios from "axios";
-import { Form, Label, FormGroup, Button, Input, Container } from "reactstrap";
+import { Form, Label, FormGroup, Button, Input } from "reactstrap";
 import "../css/OrderPage.css";
 import "../../images/iteration-1-images/logo.svg";
 
-function OrderPage({ onBack }) {
+function OrderPage({ onBack, onSuccess }) {
   const [order, setOrder] = useState({
+    userName: "",
     pizzaCount: 1,
     selectedSize: "kucuk",
     selectedDough: "normal",
@@ -56,6 +57,7 @@ function OrderPage({ onBack }) {
         totalPrice,
       });
       console.log("Order submitted:", response.data);
+      onSuccess();
     } catch (error) {
       console.error("Error submitting order:", error);
     }
@@ -141,7 +143,9 @@ function OrderPage({ onBack }) {
 
           <FormGroup className="extras">
             <h6>Ek Malzemeler</h6>
-            <p>En fazla 10 malzeme seciniz. 5 TL</p>
+            <p>
+              En fazla 10 malzeme seciniz. 5 TL (en az 4 malzeme secilmelidir)
+            </p>
             <div className="extra-elements">
               {[
                 "Mantar",
@@ -174,9 +178,20 @@ function OrderPage({ onBack }) {
           </FormGroup>
 
           <FormGroup className="customer-note">
+            <Label>Adiniz</Label>
+            <Input
+              type="text"
+              placeholder="Size nasıl hitap edelim?"
+              value={order.userName}
+              onChange={(e) =>
+                updateOrder("userName", e.target.value.toUpperCase())
+              }
+              style={{ width: "50%" }}
+            />
             <Label>Notunuz</Label>
             <Input
               type="text"
+              placeholder="Eklemek istediginiz bir not var mı?"
               name="not"
               value={order.orderNote}
               onChange={(e) => updateOrder("orderNote", e.target.value)}
@@ -217,7 +232,13 @@ function OrderPage({ onBack }) {
                   <p>{totalPrice} TL</p>
                 </div>
               </div>
-              <Button color="primary" onClick={handleSubmit}>
+              <Button
+                disabled={
+                  order.selectedToppings.length < 4 || order.userName === ""
+                }
+                color="primary"
+                onClick={handleSubmit}
+              >
                 Siparisi Tamamla
               </Button>
             </FormGroup>
