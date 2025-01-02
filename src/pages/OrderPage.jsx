@@ -86,6 +86,7 @@ function OrderPage({ onBack }) {
           </div>
           <p>{pizzaData[1].description}</p>
         </div>
+
         <Form>
           <FormGroup className="pizza-sizes">
             <div className="dough-size">
@@ -209,11 +210,11 @@ function OrderPage({ onBack }) {
                 <h4>Siparis Toplami</h4>
                 <div className="extra-price">
                   <p>Secimler</p>
-                  <p>{totalToppingPrice}</p>
+                  <p>{totalToppingPrice} TL</p>
                 </div>
                 <div className="total-price">
                   <p>Toplam:</p>
-                  <p>{totalPrice}</p>
+                  <p>{totalPrice} TL</p>
                 </div>
               </div>
               <Button color="primary" onClick={handleSubmit}>

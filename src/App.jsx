@@ -8,9 +8,11 @@ function App() {
 
   return (
     <div>
-      {/*<HomePage />*/}
-      {/*<OrderPage />*/}
-      <OrderPage />
+      {showOrderPage ? (
+        <OrderPage onBack={() => setShowOrderPage(false)} />
+      ) : (
+        <HomePage onButtonClick={() => setShowOrderPage(true)} />
+      )}
     </div>
   );
 }
