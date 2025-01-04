@@ -1,12 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import pizzaData from "../fakeData";
-import axios from "axios";
-import { Form, Label, FormGroup, Button, Input } from "reactstrap";
-import "../css/OrderPage.css";
-import "../../images/iteration-1-images/logo.svg";
+import React, { useState, useEffect } from "react";
 
-function OrderPage({ onBack, onSuccess }) {
+import PizzaForm from "../components/Order/PizzaForm";
+import OrderSummary from "../components/Order/OrderSummary";
+import PizzaInfo from "../components/Order/PizzaInfo";
+
+import "./OrderPage.css";
+import Header from "../components/Order/Header.jsx";
+import { set } from "lodash";
+
+function OrderPage({ onBack, onSuccess, selectedProduct }) {
   const [order, setOrder] = useState({
     userName: "",
     pizzaCount: 1,
@@ -14,30 +16,28 @@ function OrderPage({ onBack, onSuccess }) {
     selectedDough: "normal",
     selectedToppings: [],
     orderNote: "",
-    pizzaName: pizzaData[1].name,
+    pizzaName: selectedProduct ? selectedProduct.name : "",
   });
 
-  const pizzaPrice = pizzaData[1].price;
+  const pizzaPrice = selectedProduct ? selectedProduct.price : 0;
 
   const updateOrder = (key, value) => {
-    setOrder((prevOrder) => ({
-      ...prevOrder,
-      [key]: value,
-    }));
+    setOrder((prevOrder) => ({ ...prevOrder, [key]: value }));
   };
 
   const handleToppingsChange = (e) => {
     const value = e.target.value;
+
     setOrder((prevOrder) => {
       const isSelected = prevOrder.selectedToppings.includes(value);
       if (!isSelected && prevOrder.selectedToppings.length >= 10) {
-        alert("En fazla 10 malzeme secilebilir");
         return prevOrder;
       }
 
       const selectedToppings = isSelected
         ? prevOrder.selectedToppings.filter((topping) => topping !== value)
         : [...prevOrder.selectedToppings, value];
+
       return {
         ...prevOrder,
         selectedToppings,
@@ -65,185 +65,22 @@ function OrderPage({ onBack, onSuccess }) {
 
   return (
     <div>
-      <header>
-        <img src="../../images/iteration-1-images/logo.svg" alt="logo" />
-        <div className="order-header-buttons">
-          <button onClick={onBack}>Anasayfa</button>
-          <p>-</p>
-          <button>Secenekler</button>
-          <p>-</p>
-          <button>Siparis Olustur</button>
-        </div>
-      </header>
+      <Header onBack={onBack} />
 
       <section>
-        <div className="pizza-info">
-          <h2>{pizzaData[1].name}</h2>
-          <div className="pizza-details">
-            <p>{pizzaPrice} TL</p>
-            <div className="rateNreview">
-              <p>{pizzaData[1].rating}</p>
-              <p>{pizzaData[1].reviewCount}</p>
-            </div>
-          </div>
-          <p>{pizzaData[1].description}</p>
-        </div>
-
-        <Form>
-          <FormGroup className="pizza-sizes">
-            <div className="dough-size">
-              <Label className="dough-header">Boyut Sec</Label>
-              <div className="dough-option">
-                <input
-                  type="radio"
-                  name="boyut"
-                  value="kucuk"
-                  id="kucuk"
-                  checked={order.selectedSize === "kucuk"}
-                  onChange={(e) => updateOrder("selectedSize", e.target.value)}
-                />
-                <Label for="kucuk">Kucuk</Label>
-              </div>
-              <div className="dough-option">
-                <input
-                  type="radio"
-                  name="boyut"
-                  value="orta"
-                  id="orta"
-                  checked={order.selectedSize === "orta"}
-                  onChange={(e) => updateOrder("selectedSize", e.target.value)}
-                />
-                <Label for="kucuk">Orta</Label>
-              </div>
-              <div className="dough-option">
-                <input
-                  type="radio"
-                  name="boyut"
-                  value="buyuk"
-                  id="buyuk"
-                  checked={order.selectedSize === "buyuk"}
-                  onChange={(e) => updateOrder("selectedSize", e.target.value)}
-                />
-                <Label for="kucuk">Buyuk</Label>
-              </div>
-            </div>
-            <div className="dough-thickness">
-              <Label>Hamur Sec</Label>
-              <select
-                name="hamur"
-                value={order.selectedDough}
-                onChange={(e) => updateOrder("selectedDough", e.target.value)}
-              >
-                <option value="normal">Normal</option>
-                <option value="ince">Ince</option>
-                <option value="kalın">Kalın</option>
-              </select>
-            </div>
-          </FormGroup>
-
-          <FormGroup className="extras">
-            <h6>Ek Malzemeler</h6>
-            <p>
-              En fazla 10 malzeme seciniz. 5 TL (en az 4 malzeme secilmelidir)
-            </p>
-            <div className="extra-elements">
-              {[
-                "Mantar",
-                "Zeytin",
-                "Sucuk",
-                "Salam",
-                "Sosis",
-                "Biber",
-                "Domates",
-                "Mısır",
-                "Pepperoni",
-                "Jambon",
-                "Sarimsak",
-                "Kabak",
-                "Ananas",
-              ].map((topping) => (
-                <Label key={topping} className="extra-item">
-                  <Input
-                    type="checkbox"
-                    name={topping}
-                    value={topping}
-                    onChange={handleToppingsChange}
-                    className="extra-checkbox"
-                    checked={order.selectedToppings.includes(topping)}
-                  />
-                  {topping.charAt(0).toUpperCase() + topping.slice(1)}
-                </Label>
-              ))}
-            </div>
-          </FormGroup>
-
-          <FormGroup className="customer-note">
-            <Label>Adiniz</Label>
-            <Input
-              type="text"
-              placeholder="Size nasıl hitap edelim?"
-              value={order.userName}
-              onChange={(e) =>
-                updateOrder("userName", e.target.value.toUpperCase())
-              }
-              style={{ width: "50%" }}
-            />
-            <Label>Notunuz</Label>
-            <Input
-              type="text"
-              placeholder="Eklemek istediginiz bir not var mı?"
-              name="not"
-              value={order.orderNote}
-              onChange={(e) => updateOrder("orderNote", e.target.value)}
-            />
-          </FormGroup>
-          <hr />
-          <div className="order-control">
-            <FormGroup>
-              <div className="pizza-count">
-                <Button
-                  color="warning"
-                  onClick={() =>
-                    updateOrder("pizzaCount", Math.max(1, order.pizzaCount - 1))
-                  }
-                >
-                  -
-                </Button>
-                <p>{order.pizzaCount}</p>
-                <Button
-                  color="warning"
-                  onClick={() =>
-                    updateOrder("pizzaCount", order.pizzaCount + 1)
-                  }
-                >
-                  +
-                </Button>
-              </div>
-            </FormGroup>
-            <FormGroup className="order-price">
-              <div className="order-details">
-                <h4>Siparis Toplami</h4>
-                <div className="extra-price">
-                  <p>Secimler</p>
-                  <p>{totalToppingPrice} TL</p>
-                </div>
-                <div className="total-price">
-                  <p>Toplam:</p>
-                  <p>{totalPrice} TL</p>
-                </div>
-              </div>
-              <Button
-                disabled={
-                  order.selectedToppings.length < 4 || order.userName === ""
-                }
-                color="primary"
-                onClick={handleSubmit}
-              >
-                Siparisi Tamamla
-              </Button>
-            </FormGroup>
-          </div>
-        </Form>
+        <PizzaInfo pizza={selectedProduct} />
+        <PizzaForm
+          order={order}
+          updateOrder={updateOrder}
+          handleToppingsChange={handleToppingsChange}
+        />
+        <OrderSummary
+          order={order}
+          totalPrice={totalPrice}
+          totalToppingPrice={totalToppingPrice}
+          updateOrder={updateOrder}
+          handleSubmit={handleSubmit}
+        />
       </section>
     </div>
   );

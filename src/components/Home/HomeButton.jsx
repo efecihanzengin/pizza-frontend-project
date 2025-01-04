@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Homepage.css";
+import "../../pages/Homepage.css";
 
 function HomeButton({ onClick }) {
   return (

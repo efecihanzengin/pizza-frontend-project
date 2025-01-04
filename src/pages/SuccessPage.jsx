@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/SuccessPage.css";
+import "./SuccessPage.css";
 import "../../images/iteration-1-images/logo.svg";
 
 const SuccessPage = ({ onBack }) => {

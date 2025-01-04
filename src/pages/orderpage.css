@@ -6,6 +6,32 @@ header {
     background-color: #CE2829;
     height: 160px;
     font-family: "Barlow", sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    transition: all 0.5s ease;
+}
+
+header.shrink {
+    height: 80px;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header.shrink img {
+    width: 180px;
+    height: 180px;
+    margin-left: 32vw;
+
+}
+
+header.shrink .order-header-buttons {
+    top: 30px;
+    left: 50vw;
+    transition: all 0.5s ease;
 }
 
 .order-header-buttons {
@@ -111,7 +137,8 @@ Form {
 .dough-header,
 .extras h6,
 .customer-note label,
-.order-details h4 {
+.order-details h4,
+.extras-header {
     font-size: 24px;
     font-weight: 600;
     color: #CE2829;
@@ -185,10 +212,23 @@ Form {
     gap: 30px;
 }
 
-.extras p {
+.extra-item p {
     color: #333;
     position: relative;
     bottom: 10px;
+}
+
+.error-message {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.extras p {
+    color: #5F5F5F;
+    font-size: 14px;
+    position: relative
+    bottom 15px;
 }
 
 .extra-elements {
@@ -234,6 +274,7 @@ Form {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 80px;
+    margin-top: 50px;
 }
 .pizza-count {
     display: flex;
