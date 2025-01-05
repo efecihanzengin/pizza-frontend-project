@@ -8,7 +8,7 @@ import pizzaData, {
   frenchFriesData,
   ramenData,
 } from "../../fakeData";
-import "./footer.css"; // CSS dosyasını import et
+import "./footer.css";
 
 function Footer() {
   const allFoodData = [
@@ -25,16 +25,19 @@ function Footer() {
   const randomFoods = getRandomFoods(6);
   return (
     <footer>
-      <div className="footer-left">
-        <FooterAboutUs />
-        <FooterSuggestions randomFoods={randomFoods} />
-      </div>
-      <div className="footer-right">
-        <h5>Instagram</h5>
-        <FooterInstagram />
+      <div className="footer-container">
+        <div className="footer-section">
+          <FooterAboutUs />
+        </div>
+        <div className="footer-section">
+          <FooterSuggestions randomFoods={randomFoods} />
+        </div>
+        <div className="footer-section">
+          <h5>Instagram</h5>
+          <FooterInstagram />
+        </div>
       </div>
     </footer>
   );
 }
-
 export default Footer;

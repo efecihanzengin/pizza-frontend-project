@@ -1,4 +1,5 @@
 import React from "react";
+
 function Header({ onBack, isShrink }) {
   return (
     <header className={`${isShrink ? "shrink" : ""}`}>
@@ -19,4 +20,5 @@ function Header({ onBack, isShrink }) {
     </header>
   );
 }
+
 export default Header;

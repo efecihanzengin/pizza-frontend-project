@@ -9,6 +9,16 @@ import "./OrderPage.css";
 import Header from "../components/Order/Header.jsx";
 
 function OrderPage({ onBack, onSuccess, selectedProduct }) {
+  const defaultPizza = {
+    name: "Position Absolute Acı Pizza",
+    price: 85.50,
+    rating: 4.9,
+    reviewCount: 200,
+    description: "Frontend Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir."
+  };
+
+  const activePizza = selectedProduct || defaultPizza;
+  
   const [order, setOrder] = useState({
     username: "",
     pizzaCount: 1,
@@ -16,12 +26,11 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
     selectedDough: "normal",
     selectedToppings: [],
     orderNote: "",
-    pizzaName: selectedProduct ? selectedProduct.name : "",
+    pizzaName: activePizza.name,
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-
-  const pizzaPrice = selectedProduct ? selectedProduct.price : 0;
+  const [successMessage, setSuccessMessage] = useState("");
 
   const updateOrder = (key, value) => {
     setOrder((prevOrder) => ({ ...prevOrder, [key]: value }));
@@ -58,8 +67,8 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
   };
 
   const toppingPrice = 5;
-  const totalToppingPrice = order.selectedToppings.length * toppingPrice;
-  const totalPizzaPrice = pizzaPrice * order.pizzaCount;
+  const totalToppingPrice = order.selectedToppings.length * toppingPrice * order.pizzaCount;
+  const totalPizzaPrice = activePizza.price * order.pizzaCount;
   const totalPrice = totalPizzaPrice + totalToppingPrice;
 
   const handleSubmit = async () => {
@@ -80,6 +89,8 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
       });
       console.log("Order submitted:", response.data);
       onSuccess();
+      // Başarılı sipariş mesajı
+      setSuccessMessage("Siparişiniz başarıyla alındı!");
     } catch (error) {
       console.error("Error submitting order:", error);
       setErrorMessage("Sipariş gönderilirken bir hata oluştu");
@@ -90,7 +101,7 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
     <div>
       <Header onBack={onBack} />
       <section>
-        <PizzaInfo pizza={selectedProduct} />
+        <PizzaInfo pizza={activePizza} />
         <PizzaForm
           order={order}
           updateOrder={updateOrder}
@@ -103,6 +114,8 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
           totalToppingPrice={totalToppingPrice}
           updateOrder={updateOrder}
           handleSubmit={handleSubmit}
+          pizzaPrice={activePizza.price}
+          successMessage={successMessage}
         />
       </section>
     </div>

@@ -12,7 +12,7 @@ function FooterAboutUs() {
           alt="Adres"
         />
         <p>341 Londonderry Road</p>
-        <p>Izmir, Turkey</p>
+        <p>Izmir, Turkeyy</p>
       </div>
       <div className="eposta">
         <img

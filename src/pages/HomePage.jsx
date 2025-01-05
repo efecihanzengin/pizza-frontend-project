@@ -35,7 +35,9 @@ function HomePage({ onButtonClick, isShrink }) {
         />
       </nav>
       <main>
-        <MainCard />
+        <div className="main-card-container">
+          <MainCard />
+        </div>
         <SuggestionCards />
         <p className="menu-title">en çok paketlenen menüler</p>
         <h5 className="menu-title-second">

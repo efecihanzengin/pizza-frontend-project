@@ -19,12 +19,18 @@ function PizzaForm({ order, updateOrder, handleToppingsChange, errorMessage }) {
   ];
   
   return (
-    <Form>
+    <Form data-cy="pizza-form">
+      <div className="form-description" data-cy="form-description">
+        <p data-cy="form-description-text">
+          En az 4, en fazla 10 malzeme seçebilirsiniz. Her malzeme 5₺'dir.
+          Siparişinizi tamamlamak için isminizi girmeyi unutmayın.
+        </p>
+      </div>
       <FormGroup className="pizza-sizes" data-cy="pizza-sizes">
         <div className="dough-size" data-cy="dough-size">
-          <Label className="dough-header">Boyut Seç</Label>
+          <Label className="dough-header" data-cy="dough-header">Boyut Seç</Label>
           {["kucuk", "orta", "buyuk"].map((size) => (
-            <div className="dough-option" key={size}>
+            <div className="dough-option" key={size} data-cy="dough-option">
               <input
                 type="radio"
                 name="boyut"
@@ -34,31 +40,31 @@ function PizzaForm({ order, updateOrder, handleToppingsChange, errorMessage }) {
                 onChange={(e) => updateOrder("selectedSize", e.target.value)}
                 data-cy={`size-${size}`}
               />
-              <Label htmlFor={size}>
+              <Label htmlFor={size} data-cy={`size-label-${size}`}>
                 {size.charAt(0).toUpperCase() + size.slice(1)}
               </Label>
             </div>
           ))}
         </div>
         <div className="dough-thickness" data-cy="dough-thickness">
-          <Label>Hamur Seç</Label>
+          <Label data-cy="dough-thickness-label">Hamur Seç</Label>
           <select
             name="hamur"
             value={order.selectedDough}
             onChange={(e) => updateOrder("selectedDough", e.target.value)}
             data-cy="dough-select"
           >
-            <option value="ince">İnce</option>
-            <option value="normal">Normal</option>
-            <option value="kalin">Kalın</option>
+            <option value="ince" data-cy="dough-option-ince">İnce</option>
+            <option value="normal" data-cy="dough-option-normal">Normal</option>
+            <option value="kalin" data-cy="dough-option-kalin">Kalın</option>
           </select>
         </div>
       </FormGroup>
       <FormGroup className="extras" data-cy="extras">
-        <Label className="extras-header">Ek Malzemeler</Label>
-        <p>(En az 4 malzeme seçmelisiniz)</p>
+        <Label className="extras-header" data-cy="extras-header">Ek Malzemeler</Label>
+        <p data-cy="extras-info">(En az 4 malzeme seçmelisiniz)</p>
         {errorMessage && (
-          <p className="error-message" style={{ color: "#e91212" }}>
+          <p className="error-message" style={{ color: "#e91212" }} data-cy="error-message">
             *{errorMessage}
           </p>
         )}
@@ -83,7 +89,7 @@ function PizzaForm({ order, updateOrder, handleToppingsChange, errorMessage }) {
         </div>
       </FormGroup>
       <FormGroup className="customer-note" data-cy="customer-note">
-        <Label>İsminiz</Label>
+        <Label data-cy="username-label">İsminiz</Label>
         <Input
           type="text"
           placeholder="Adınız... (Zorunlu)"
@@ -94,7 +100,7 @@ function PizzaForm({ order, updateOrder, handleToppingsChange, errorMessage }) {
           style={{ width: "50%" }}
           data-cy="username-input"
         />
-        <Label>Sipariş Notu</Label>
+        <Label data-cy="order-note-label">Sipariş Notu</Label>
         <Input
           type="text"
           placeholder="Siparişine eklemek istediğin bir not var mı?"

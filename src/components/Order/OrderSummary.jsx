@@ -1,55 +1,63 @@
 import React from "react";
-import { Button, FormGroup } from "reactstrap";
+
 function OrderSummary({
   order,
   totalPrice,
   totalToppingPrice,
   updateOrder,
   handleSubmit,
+  pizzaPrice,
 }) {
+  const basePizzaPrice = pizzaPrice * order.pizzaCount;
+
   return (
-    <div className="order-control" data-cy="order-control">
-      <FormGroup>
-        <div className="pizza-count" data-cy="pizza-count">
-          <Button
-            onClick={() =>
-              updateOrder("pizzaCount", Math.max(1, order.pizzaCount - 1))
-            }
-            data-cy="decrease-pizza-count"
-          >
-            -
-          </Button>
-          <p data-cy="pizza-count-value">{order.pizzaCount}</p>
-          <Button
-            onClick={() => updateOrder("pizzaCount", order.pizzaCount + 1)}
-            data-cy="increase-pizza-count"
-          >
-            +
-          </Button>
-        </div>
-      </FormGroup>
-      <FormGroup className="order-price" data-cy="order-price">
-        <div className="order-details">
-          <h4>Sipariş Toplamı</h4>
-          <div className="extra-price">
-            <p>Seçimler:</p> <p data-cy="topping-price">{totalToppingPrice}₺</p>
-          </div>
-          <div className="total-price">
-            <p>Toplam:</p> <p data-cy="total-price">{totalPrice}₺</p>
-          </div>
-        </div>
-        <Button
-          color="primary"
-          onClick={handleSubmit}
-          disabled={
-            order.selectedToppings.length < 4 || order.username.length < 3
+    <div className="order-summary" data-cy="order-summary">
+      <h2 data-cy="summary-title">Sipariş Toplamı</h2>
+
+      <div className="quantity-control" data-cy="quantity-control">
+        <button
+          onClick={() =>
+            updateOrder("pizzaCount", Math.max(1, order.pizzaCount - 1))
           }
-          data-cy="submit-order"
+          disabled={order.pizzaCount <= 1}
+          data-cy="decrease-pizza-count"
         >
-          Sipariş Ver
-        </Button>
-      </FormGroup>
+          -
+        </button>
+        <span data-cy="pizza-count">{order.pizzaCount}</span>
+        <button
+          onClick={() => updateOrder("pizzaCount", order.pizzaCount + 1)}
+          data-cy="increase-pizza-count"
+        >
+          +
+        </button>
+      </div>
+
+      <div className="summary-row" data-cy="pizza-price-row">
+        <span>Pizza Fiyatı</span>
+        <span data-cy="pizza-base-price">{basePizzaPrice.toFixed(2)}₺</span>
+      </div>
+
+      <div className="summary-row" data-cy="toppings-price-row">
+        <span>Ek Malzemeler</span>
+        <span data-cy="topping-price">{totalToppingPrice.toFixed(2)}₺</span>
+      </div>
+
+      <div className="summary-row total" data-cy="total-price-row">
+        <span>Toplam</span>
+        <span data-cy="total-price">{totalPrice.toFixed(2)}₺</span>
+      </div>
+
+      <button
+        className="submit-button"
+        onClick={handleSubmit}
+        disabled={!order.username || order.selectedToppings.length < 4}
+        data-cy="submit-order"
+      >
+        SİPARİŞ VER
+      </button>
     </div>
   );
 }
+
 export default OrderSummary;

@@ -10,21 +10,23 @@
 }
 
 .header-text {
+  background-color: #CE2829;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  text-align: center;
   z-index: 1;
   background-image: url('../../images/iteration-1-images/home-banner.png');
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
-  width: 100%;
   min-height: 80vh;
-  padding: 40px 0;
 }
 
 .header-text img {
@@ -47,6 +49,11 @@
   background-color: white;
   padding: 15px 0;
   width: 100%;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .header-nav {
@@ -117,6 +124,12 @@
   }
 }
 
+.main-card-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .main-card {
   background-color: #C1392B;
   border-radius: 20px;
@@ -130,10 +143,8 @@
   min-height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 300px;
+  z-index: 2;
 }
-
-
 
 .main-card h3 {
   font-size: 48px;
@@ -157,8 +168,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
-
 
 .suggestion-card button, .main-card button {
   background-color:white;
@@ -191,6 +200,14 @@
   font-family: 'Roboto Condensed', sans-serif;
   margin: 0;
   margin-bottom: 10px;
+}
+
+.suggestion-card h3 span.highlight {
+  color: #CE2829;
+}
+
+.suggestion-card h3 span.normal {
+  color: #000;
 }
 
 .suggestion-card p {
