@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import PizzaForm from "../components/Order/PizzaForm";
 import OrderSummary from "../components/Order/OrderSummary";
@@ -6,11 +7,10 @@ import PizzaInfo from "../components/Order/PizzaInfo";
 
 import "./OrderPage.css";
 import Header from "../components/Order/Header.jsx";
-import { set } from "lodash";
 
 function OrderPage({ onBack, onSuccess, selectedProduct }) {
   const [order, setOrder] = useState({
-    userName: "",
+    username: "",
     pizzaCount: 1,
     selectedSize: "kucuk",
     selectedDough: "normal",
@@ -19,10 +19,13 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
     pizzaName: selectedProduct ? selectedProduct.name : "",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const pizzaPrice = selectedProduct ? selectedProduct.price : 0;
 
   const updateOrder = (key, value) => {
     setOrder((prevOrder) => ({ ...prevOrder, [key]: value }));
+    setErrorMessage(""); // Her değişiklikte hata mesajını temizle
   };
 
   const handleToppingsChange = (e) => {
@@ -30,7 +33,15 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
 
     setOrder((prevOrder) => {
       const isSelected = prevOrder.selectedToppings.includes(value);
+      
+      // Eğer malzeme çıkarılıyorsa ve 4'ten az malzeme kalacaksa
+      if (isSelected && prevOrder.selectedToppings.length <= 4) {
+        setErrorMessage("En az 4 malzeme seçmelisiniz");
+        return prevOrder;
+      }
+
       if (!isSelected && prevOrder.selectedToppings.length >= 10) {
+        setErrorMessage("En fazla 10 malzeme seçebilirsiniz");
         return prevOrder;
       }
 
@@ -38,6 +49,7 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
         ? prevOrder.selectedToppings.filter((topping) => topping !== value)
         : [...prevOrder.selectedToppings, value];
 
+      setErrorMessage(""); // Hata yoksa mesajı temizle
       return {
         ...prevOrder,
         selectedToppings,
@@ -51,6 +63,16 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
   const totalPrice = totalPizzaPrice + totalToppingPrice;
 
   const handleSubmit = async () => {
+    if (order.selectedToppings.length < 4) {
+      setErrorMessage("En az 4 malzeme seçmelisiniz");
+      return;
+    }
+
+    if (!order.username || order.username.length < 3) {
+      setErrorMessage("Lütfen geçerli bir isim giriniz");
+      return;
+    }
+
     try {
       const response = await axios.post("https://reqres.in/api/users", {
         ...order,
@@ -60,19 +82,20 @@ function OrderPage({ onBack, onSuccess, selectedProduct }) {
       onSuccess();
     } catch (error) {
       console.error("Error submitting order:", error);
+      setErrorMessage("Sipariş gönderilirken bir hata oluştu");
     }
   };
 
   return (
     <div>
       <Header onBack={onBack} />
-
       <section>
         <PizzaInfo pizza={selectedProduct} />
         <PizzaForm
           order={order}
           updateOrder={updateOrder}
           handleToppingsChange={handleToppingsChange}
+          errorMessage={errorMessage}
         />
         <OrderSummary
           order={order}

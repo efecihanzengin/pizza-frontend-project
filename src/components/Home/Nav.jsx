@@ -1,4 +1,5 @@
 import React from "react";
+
 function Nav({ item, onClick }) {
   const { name, image } = item;
   return (
@@ -8,4 +9,5 @@ function Nav({ item, onClick }) {
     </li>
   );
 }
+
 export default Nav;

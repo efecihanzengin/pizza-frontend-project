@@ -37,8 +37,10 @@ function HomePage({ onButtonClick, isShrink }) {
       <main>
         <MainCard />
         <SuggestionCards />
-        <p>en çok paketlenen menüler</p>
-        <h5>Acıktıran Kodlara Doyuran Lezzetler</h5>
+        <p className="menu-title">en çok paketlenen menüler</p>
+        <h5 className="menu-title-second">
+          Acıktıran Kodlara Doyuran Lezzetler
+        </h5>
         <ExpressCards
           items={expressMenuProducts[expressMenu]}
           onProductClick={handleProductClick}

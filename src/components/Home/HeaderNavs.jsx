@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "./Nav";
+
 function HeaderNavs({ item, onNavClick }) {
   return (
     <ul className="header-nav">
@@ -15,4 +16,5 @@ function HeaderNavs({ item, onNavClick }) {
     </ul>
   );
 }
+
 export default HeaderNavs;

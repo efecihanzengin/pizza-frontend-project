@@ -1,6 +1,7 @@
 export const mainCard = {
     id: 1000,
-    name: "Cooook hizli npm gibi kurye",
+    name: "Position: Absolute Aci Burger",
+    header: "Özel Lezzetus",
     image: `../images/iteration-2-images/cta/kart-1.png`,
 }
 export const suggestionCards = [{
@@ -9,8 +10,7 @@ export const suggestionCards = [{
     image: `../images/iteration-2-images/cta/kart-2.png`,
 }, {
     id: 1002,
-    name: "Reduce Spicy Veggie",
-    header: "Özel Lezzetus",
+    name: "coooook hizli npm gibi kurye",
     image: `../images/iteration-2-images/cta/kart-3.png`,
 }]
 export const expressMenuProducts = {

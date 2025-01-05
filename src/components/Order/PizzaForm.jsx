@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, FormGroup, Label, Input } from "reactstrap";
-function PizzaForm({ order, updateOrder, handleToppingChange, errorMessage }) {
+
+function PizzaForm({ order, updateOrder, handleToppingsChange, errorMessage }) {
   const toppings = [
     "Pepperoni",
     "Sosis",
@@ -16,6 +17,7 @@ function PizzaForm({ order, updateOrder, handleToppingChange, errorMessage }) {
     "Ananas",
     "Kabak",
   ];
+  
   return (
     <Form>
       <FormGroup className="pizza-sizes" data-cy="pizza-sizes">
@@ -71,7 +73,7 @@ function PizzaForm({ order, updateOrder, handleToppingChange, errorMessage }) {
                 type="checkbox"
                 value={topping}
                 checked={order.selectedToppings.includes(topping)}
-                onChange={handleToppingChange}
+                onChange={handleToppingsChange}
                 className="extra-checkbox"
                 data-cy={`extra-checkbox-${topping}`}
               />
@@ -104,4 +106,5 @@ function PizzaForm({ order, updateOrder, handleToppingChange, errorMessage }) {
     </Form>
   );
 }
+
 export default PizzaForm;

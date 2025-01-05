@@ -1,6 +1,10 @@
 import React from "react";
 
 const PizzaInfo = ({ pizza }) => {
+  if (!pizza) {
+    return <div className="pizza-info">Lütfen bir pizza seçin</div>;
+  }
+
   return (
     <div className="pizza-info">
       <h4 data-cy="pizza-name">{pizza.name}</h4>
@@ -15,4 +19,5 @@ const PizzaInfo = ({ pizza }) => {
     </div>
   );
 };
+
 export default PizzaInfo;

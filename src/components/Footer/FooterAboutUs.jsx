@@ -12,14 +12,14 @@ function FooterAboutUs() {
           alt="Adres"
         />
         <p>341 Londonderry Road</p>
-        <p>Istanbul, Turkey</p>
+        <p>Izmir, Turkey</p>
       </div>
       <div className="eposta">
         <img
           src="../../images/iteration-2-images/footer/icons/icon-2.png"
           alt="Eposta"
         />
-        <p>atabeywade@gmail.com</p>
+        <p>efecihanzengin@gmail.com</p>
       </div>
       <div className="phone">
         <img

@@ -1,6 +1,7 @@
 import React from "react";
 import OrderButton from "./OrderButton";
 import { mainCard } from "../../HomeSuggestionData";
+
 function MainCard() {
   const { name, image, header } = mainCard;
   return (
@@ -11,4 +12,5 @@ function MainCard() {
     </div>
   );
 }
+
 export default MainCard;

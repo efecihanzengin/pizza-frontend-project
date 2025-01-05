@@ -8,6 +8,8 @@ import pizzaData, {
   frenchFriesData,
   ramenData,
 } from "../../fakeData";
+import "./footer.css"; // CSS dosyasını import et
+
 function Footer() {
   const allFoodData = [
     ...pizzaData,
@@ -34,4 +36,5 @@ function Footer() {
     </footer>
   );
 }
+
 export default Footer;
