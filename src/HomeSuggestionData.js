@@ -2,16 +2,16 @@ export const mainCard = {
     id: 1000,
     name: "Position: Absolute Aci Burger",
     header: "Özel Lezzetus",
-    image: `../images/iteration-2-images/cta/kart-1.png`,
+    image: `/images/iteration-2-images/cta/kart-1.png`,
 }
 export const suggestionCards = [{
     id: 1001,
     name: "Hackathlon Burger Menü",
-    image: `../images/iteration-2-images/cta/kart-2.png`,
+    image: `/images/iteration-2-images/cta/kart-2.png`,
 }, {
     id: 1002,
     name: "coooook hizli npm gibi kurye",
-    image: `../images/iteration-2-images/cta/kart-3.png`,
+    image: `/images/iteration-2-images/cta/kart-3.png`,
 }]
 export const expressMenuProducts = {
     ramen: [
@@ -19,19 +19,22 @@ export const expressMenuProducts = {
             name: "Spicy Chicken Ramen",
             price: 12.99,
             rating: 4.5,
-            reviewCount: 150
+            reviewCount: 150,
+            image: `/images/iteration-2-images/pictures/food-4.png`,
         },
         {
             name: "Veggie Miso Ramen",
             price: 10.49,
             rating: 4.2,
-            reviewCount: 200
+            reviewCount: 200,
+            image: `/images/iteration-2-images/pictures/food-5.png`,
         },
         {
             name: "Pork Tonkotsu Ramen",
             price: 14.99,
             rating: 4.8,
-            reviewCount: 300
+            reviewCount: 300,
+            image: `/images/iteration-2-images/pictures/food-6.png`,
         }
     ],
     pizza: [
@@ -40,24 +43,38 @@ export const expressMenuProducts = {
             price: 58,
             rating: 4.7,
             reviewCount: 190,
-            image: `../images/iteration-2-images/pictures/food-1.png`,
+            image: `/images/iteration-2-images/pictures/food-1.png`,
         },
         {
             name: "Reduce Spicy Veggie",
             price: 50,
             rating: 4.2,
             reviewCount: 110,
-            image: `../images/iteration-2-images/pictures/food-2.png`,
+            image: `/images/iteration-2-images/pictures/food-2.png`,
         },
         {
             name: "Classic Cheeseburger",
             price: 8.99,
             rating: 4.7,
             reviewCount: 400,
-            image: `../images/iteration-2-images/pictures/food-3.png`,
+            image: `/images/iteration-2-images/pictures/food-3.png`,
         }
     ],
     burger: [
+        {
+            name: "Double Stack Burger",
+            price: 15.99,
+            rating: 4.6,
+            reviewCount: 250,
+            image: `/images/iteration-2-images/pictures/food-7.png`,
+        },
+        {
+            name: "Veggie Burger",
+            price: 11.99,
+            rating: 4.3,
+            reviewCount: 180,
+            image: `/images/iteration-2-images/pictures/food-8.png`,
+        },
         {
             name: "Classic Cheeseburger",
             price: 8.99,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./HomePage.css";
-import logo from "../../images/iteration-1-images/logo.svg";
+import logo from "/images/iteration-1-images/logo.svg";
 import HomeButton from "../components/Home/HomeButton";
 import HeaderNavs from "../components/Home/HeaderNavs";
 import MainCard from "../components/Home/MainCard";
@@ -13,6 +13,7 @@ import Footer from "../components/Footer/Footer";
 function HomePage({ onButtonClick, isShrink }) {
   const [expressMenu, setExpressMenu] = useState("pizza");
   const [selectedProduct, setSelectedProduct] = useState(null);
+
   function handleExpressMenuClick(category) {
     setExpressMenu(category);
   }
@@ -24,7 +25,7 @@ function HomePage({ onButtonClick, isShrink }) {
   return (
     <div className="header">
       <header className={`header-text ${isShrink ? "shrink" : ""}`}>
-        <img src={logo} alt="" />
+        <img src={logo} alt="Logo" />
         <h4>KOD ACIKTIRIR PİZZA, DOYURUR</h4>
         <HomeButton onClick={onButtonClick} data-cy="home-button" />
       </header>
